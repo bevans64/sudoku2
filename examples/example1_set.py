@@ -1,0 +1,89 @@
+# Square 1
+Matrix[1][0] = 6
+Matrix[2][0] = 1
+Matrix[1][1] = 8
+Matrix[2][1] = 9
+NumState[1][0] = 1
+NumState[2][0] = 1
+NumState[1][1] = 1
+NumState[2][1] = 1
+
+# Square 2
+Matrix[0][3] = 2
+Matrix[0][4] = 6
+Matrix[1][4] = 7
+Matrix[2][5] = 4
+NumState[0][3] = 1
+NumState[0][4] = 1
+NumState[1][4] = 1
+NumState[2][5] = 1
+
+# Square 3
+Matrix[0][6] = 7
+Matrix[2][6] = 5
+Matrix[1][7] = 9
+Matrix[0][8] = 1
+NumState[0][6] = 1
+NumState[2][6] = 1
+NumState[1][7] = 1
+NumState[0][8] = 1
+
+# Square 4
+Matrix[3][0] = 8
+Matrix[3][1] = 2
+Matrix[4][2] = 4
+Matrix[5][1] = 5
+NumState[3][0] = 1
+NumState[3][1] = 1
+NumState[4][2] = 1
+NumState[5][1] = 1
+
+# Square 5
+Matrix[3][3] = 1
+Matrix[4][3] = 6
+Matrix[4][5] = 2
+Matrix[5][5] = 3
+NumState[3][3] = 1
+NumState[4][3] = 1
+NumState[4][5] = 1
+NumState[5][5] = 1
+
+# Square 6
+Matrix[3][7] = 4
+Matrix[4][6] = 9
+Matrix[5][7] = 2
+Matrix[5][8] = 8
+NumState[3][7] = 1
+NumState[4][6] = 1
+NumState[5][7] = 1
+NumState[5][8] = 1
+
+# Square 7
+Matrix[6][2] = 9
+Matrix[7][1] = 4
+Matrix[8][0] = 7
+Matrix[8][2] = 3
+NumState[6][2] = 1
+NumState[7][1] = 1
+NumState[8][0] = 1
+NumState[8][2] = 1
+
+# Square 8
+Matrix[6][3] = 3
+Matrix[7][4] = 5
+Matrix[8][4] = 1
+Matrix[8][5] = 8
+NumState[6][3] = 1
+NumState[7][4] = 1
+NumState[8][4] = 1
+NumState[8][5] = 1
+
+# Square 9
+Matrix[6][7] = 7
+Matrix[7][7] = 3
+Matrix[7][8] = 6
+Matrix[6][8] = 4
+NumState[6][7] = 1
+NumState[7][7] = 1
+NumState[7][8] = 1
+NumState[6][8] = 1
