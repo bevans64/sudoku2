@@ -1,4 +1,3 @@
-
 def fill_square(num,startx,starty,endx,endy):
    print "DEBUG: Filling square"
    print "DEBUG: Filling with number", num
@@ -35,6 +34,7 @@ def analyze_square(num,startx,starty,endx,endy):
    print "DEBUG: Dimensions: ", startx, starty, endx, endy
    endx += 1
    endy += 1
+   numOccurance = 0
 
    for x in range(startx, endx):
       for y in range(starty, endy):
@@ -44,6 +44,7 @@ def analyze_square(num,startx,starty,endx,endy):
 
             # Check Conflicts
             testState = 0
+            numOccurance += 1
             for z in range(0, sudMatrixDim):
                if Matrix[x][z] == num:
                   testState += 1
@@ -54,31 +55,59 @@ def analyze_square(num,startx,starty,endx,endy):
                NumState[x][y] = 3 # conflicted
                boardConf[x][y] = testState - 2 # conflicted
 
-   ## Count in Square Conflicts
+   # Count in Square Conflicts
+   print "DEBUG: There are ", numOccurance, "occurances of ", num, "in the square"
+   for x in range(startx, endx):
+      for y in range(starty, endy):
+         if Matrix[x][y] == num and boardConf[x][y] != 0:
+            squareConf[x][y] = numOccurance
 
    return
 # End Function
 
-##tryNum = 5 ## num to try ##
-##print "DEBUG: trying - ", tryNum ##
+tryNum = 5 ## num to try ##
+print "DEBUG: trying - ", tryNum ##
  
-for tryNum in range(1,10): ##
-   fill_square(tryNum,0,0,2,2) # Square 1 ##
-   fill_square(tryNum,0,3,2,5) # Square 2 ##
-   fill_square(tryNum,0,6,2,8) # Square 3 ##
-   fill_square(tryNum,3,0,5,2) # Square 4 ##
-   fill_square(tryNum,3,3,5,5) # Square 5 ##
-   fill_square(tryNum,3,6,5,8) # Square 6 ##
-   fill_square(tryNum,6,0,8,2) # Square 7 ##
-   fill_square(tryNum,6,3,8,5) # Square 8 ##
-   fill_square(tryNum,6,6,8,8) # Square 9 ##
+##for tryNum in range(1,10): ##
+fill_square(tryNum,0,0,2,2) # Square 1 ##
+fill_square(tryNum,0,3,2,5) # Square 2 ##
+fill_square(tryNum,0,6,2,8) # Square 3 ##
+fill_square(tryNum,3,0,5,2) # Square 4 ##
+fill_square(tryNum,3,3,5,5) # Square 5 ##
+fill_square(tryNum,3,6,5,8) # Square 6 ##
+fill_square(tryNum,6,0,8,2) # Square 7 ##
+fill_square(tryNum,6,3,8,5) # Square 8 ##
+fill_square(tryNum,6,6,8,8) # Square 9 ##
 
-   analyze_square(tryNum,0,0,2,2) # Square 1 ##
-   analyze_square(tryNum,0,3,2,5) # Square 2 ##
-   analyze_square(tryNum,0,6,2,8) # Square 3 ##
-   analyze_square(tryNum,3,0,5,2) # Square 4 ##
-   analyze_square(tryNum,3,3,5,5) # Square 5 ##
-   analyze_square(tryNum,3,6,5,8) # Square 6 ##
-   analyze_square(tryNum,6,0,8,2) # Square 7 ##
-   analyze_square(tryNum,6,3,8,5) # Square 8 ##
-   analyze_square(tryNum,6,6,8,8) # Square 9 ##
+analyze_square(tryNum,0,0,2,2) # Square 1 ##
+analyze_square(tryNum,0,3,2,5) # Square 2 ##
+analyze_square(tryNum,0,6,2,8) # Square 3 ##
+analyze_square(tryNum,3,0,5,2) # Square 4 ##
+analyze_square(tryNum,3,3,5,5) # Square 5 ##
+analyze_square(tryNum,3,6,5,8) # Square 6 ##
+analyze_square(tryNum,6,0,8,2) # Square 7 ##
+analyze_square(tryNum,6,3,8,5) # Square 8 ##
+analyze_square(tryNum,6,6,8,8) # Square 9 ##
+tryNum = 5 ## num to try ##
+print "DEBUG: trying - ", tryNum ##
+ 
+##for tryNum in range(1,10): ##
+fill_square(tryNum,0,0,2,2) # Square 1 ##
+fill_square(tryNum,0,3,2,5) # Square 2 ##
+fill_square(tryNum,0,6,2,8) # Square 3 ##
+fill_square(tryNum,3,0,5,2) # Square 4 ##
+fill_square(tryNum,3,3,5,5) # Square 5 ##
+fill_square(tryNum,3,6,5,8) # Square 6 ##
+fill_square(tryNum,6,0,8,2) # Square 7 ##
+fill_square(tryNum,6,3,8,5) # Square 8 ##
+fill_square(tryNum,6,6,8,8) # Square 9 ##
+
+analyze_square(tryNum,0,0,2,2) # Square 1 ##
+analyze_square(tryNum,0,3,2,5) # Square 2 ##
+analyze_square(tryNum,0,6,2,8) # Square 3 ##
+analyze_square(tryNum,3,0,5,2) # Square 4 ##
+analyze_square(tryNum,3,3,5,5) # Square 5 ##
+analyze_square(tryNum,3,6,5,8) # Square 6 ##
+analyze_square(tryNum,6,0,8,2) # Square 7 ##
+analyze_square(tryNum,6,3,8,5) # Square 8 ##
+analyze_square(tryNum,6,6,8,8) # Square 9 ##
