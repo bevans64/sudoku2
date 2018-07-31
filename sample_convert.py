@@ -7,9 +7,9 @@ matrix = [0] * 81
 fileArg = sys.argv[1]
 print('DEBUG: Starting using argument (', fileArg, ')') ##
 
-fileObject = open(fileArg, "rt")
+readFileObj = open(fileArg, "rt")
 
-for line in fileObject:
+for line in readFileObj:
 
    # Work on Matrix Satements only
    if line[0] == 'M':
@@ -21,4 +21,6 @@ for line in fileObject:
       ## print('DEBUG: Matrix statement ', x,y,value)
 
 print('DEBUG: matrix is ...') ##
-print(matrix)
+
+for item in matrix:
+   print(item)
