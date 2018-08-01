@@ -6,9 +6,9 @@ class sudokuClass:
     _grid = [[0 for x in range(9)] for y in range(9)]
 
     # NumState
-    # 0 - Unknown State (YELLOW)
-    # 1 - Fixed Number (BOLD)
-    # 2 - Unconflicted Number (CYAN)
+    # 0 - Unknown State
+    # 1 - Fixed Number
+    # 2 - Unconflicted Number
     # 3 ..  - Conflicted Number
 
     _numState = [[0 for x in range(9)] for y in range(9)]
