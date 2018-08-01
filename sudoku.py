@@ -1,15 +1,26 @@
 #!/usr/bin/env python3
 # 
 
+class color: 
+   BLACK  = '\33[30m'
+   RED    = '\33[31m'
+   GREEN  = '\33[32m'
+   YELLOW = '\33[33m'
+   BLUE   = '\33[34m'
+   VIOLET = '\33[35m'
+   BEIGE  = '\33[36m'
+   WHITE  = '\33[37m'
+   END = '\033[0m'
+
 class sudokuClass: 
     _sudokuMatrix = [0] * 81 # Create Sudoku Matrix
     _grid = [[0 for x in range(9)] for y in range(9)]
 
     # NumState
-    # 0 - Unknown State
-    # 1 - Fixed Number
-    # 2 - Unconflicted Number
-    # 3 ..  - Conflicted Number
+    # 0 - Unknown State (RED)
+    # 1 - Fixed Number (WHITE)
+    # 2 - Unconflicted Number (GREEN)
+    # 3 ..  - Conflicted Number (YELLOW)
 
     _numState = [[0 for x in range(9)] for y in range(9)]
 
@@ -61,7 +72,12 @@ class sudokuClass:
              if self._grid[x][y] == 0:
                 print("   ",end='')
              else:
+                if self._numState[x][y] == 0: print(color.RED,end='')  # Set Color
+                elif self._numState[x][y] == 1: print(color.WHITE,end='') 
+                elif self._numState[x][y] == 2: print(color.GREEN,end='') 
+                elif self._numState[x][y] == 3: print(color.YELLOW,end='') 
                 print(' ' + str(self._grid[x][y]) + ' ',end='')
+                print(color.END,end='') # Color to normal
           if x == 2 or x == 5:
              print()
              print( "---------------------------------------",end='')
