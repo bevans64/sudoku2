@@ -15,11 +15,18 @@ class color:
 
 class sudokuClass: 
     _sudokuMatrix = [0] * 81 # Create Sudoku Matrix
+    _sudokuMatrixBkp = [0] * 81 # Create Sudoku Matrix Backup
+
     def __init__(self,matrix):
        print("DEBUG: sudoku class constructor called") ##
        ## print('DEBUG: matrix is (', matrix,')') ##
 
-       self._sudokuMatrix = matrix
+       self._sudokuMatrix = matrix.copy()
+       self._sudokuMatrixBkp = matrix.copy()
+
+    def reset_matrix(self):
+       print("DEBUG: sudoku reset_matrix method called") ##
+       self._sudokuMatrix = self._sudokuMatrixBkp.copy()
 
     def display_matrix(self):
        print("DEBUG: sudoku display_matrix method called") ##
@@ -67,5 +74,6 @@ def main():
    ## print('DEBUG: sudokuMatrix is (', sudoku._sudokuMatrix,')') ##
 
    sudoku.display_matrix()
+
 
 if __name__ == '__main__': main()
