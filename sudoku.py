@@ -3,42 +3,71 @@
 
 class sudokuClass: 
     _sudokuMatrix = [0] * 81 # Create Sudoku Matrix
-    _sudokuMatrixBkp = [0] * 81 # Create Sudoku Matrix Backup
+    _grid = [[0 for x in range(9)] for y in range(9)]
+
+    # NumState
+    # 0 - Unknown State (YELLOW)
+    # 1 - Fixed Number (BOLD)
+    # 2 - Unconflicted Number (CYAN)
+    # 3 ..  - Conflicted Number
+
+    _numState = [[0 for x in range(9)] for y in range(9)]
+
+
+    # Number of conflicts across the board
+    _boardConf = [[0 for x in range(9)] for y in range(9)]
+
+    # Number of conflicts across the square
+    _squareConf = [[0 for x in range(9)] for y in range(9)]
+
 
     def __init__(self,matrix):
        print("DEBUG: sudoku class constructor called") ##
        ## print('DEBUG: matrix is (', matrix,')') ##
 
        self._sudokuMatrix = matrix.copy()
-       self._sudokuMatrixBkp = matrix.copy()
+       self.reset_matrix() # sets Grids
+    # end of constructor
 
-    def reset_matrix(self):
+    def reset_matrix(self): 
        print("DEBUG: sudoku reset_matrix method called") ##
-       self._sudokuMatrix = self._sudokuMatrixBkp.copy()
+       
+       # Initialize Arrays
+       for x in range(9):
+          for y in range(9):
+             self._grid[x][y] = self._sudokuMatrix[x*9+y] % 10
+             self._numState[x][y] = self._sudokuMatrix[x*9+y] // 10
+             self._boardConf[x][y] = 0
+             self._squareConf[x][y] = 0
+    # end of reset_martix method
+
+    def export_matrix(self):
+
+       print("DEBUG: sudoku export_matrix method called") ##
+
+       # export grids
+       for x in range(9):
+          for y in range(9):
+             print(self._grid[x][y] + self._numState[x][y] * 10)
+    # end of export_martix method
 
     def display_matrix(self):
        print("DEBUG: sudoku display_matrix method called") ##
-       ## print('DEBUG: matrix is (', self._sudokuMatrix,')') ##
 
-
-       x = 0 
-       y = 0 
-       for item in self._sudokuMatrix:
-          value = item % 10
-          numState = item // 10
-          if value == 0:
-             print('   ',end='')
-          else:
-             print(' ' + str(value) + ' ',end='')
-          x += 1
-          if x == 3 or x == 6:
-              print("|", end='')
-          if x == 9:
-             print()
-             x = 0
-             y += 1
+       for x in range(9):
+          for y in range(9):
              if y == 3 or y == 6:
-                print('-----------------------------')
+                print("|",end='')
+             if self._grid[x][y] == 0:
+                print("   ",end='')
+             else:
+                print(' ' + str(self._grid[x][y]) + ' ',end='')
+          if x == 2 or x == 5:
+             print()
+             print( "---------------------------------------",end='')
+          print()
+
+    # end of display_matrix method
 
 
 # End of sudokuClass
@@ -61,7 +90,9 @@ def main():
    sudoku = sudokuClass(matrix)
    ## print('DEBUG: sudokuMatrix is (', sudoku._sudokuMatrix,')') ##
 
+   ## sudoku._grid[0][0] = '4' ## test
+   ## sudoku.reset_matrix() ##
    sudoku.display_matrix()
-
+   ## sudoku.export_matrix() ##
 
 if __name__ == '__main__': main()
