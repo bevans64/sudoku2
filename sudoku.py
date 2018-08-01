@@ -1,9 +1,20 @@
 #!/usr/bin/env python3
 # 
 
-class sudokuClass: 
-    _sudokuMatrix = [0] * 81
+class color:
+   PURPLE = '\033[95m'
+   CYAN = '\033[96m'
+   DARKCYAN = '\033[36m'
+   BLUE = '\033[94m'
+   GREEN = '\033[92m'
+   YELLOW = '\033[93m'
+   RED = '\033[91m'
+   BOLD = '\033[1m'
+   UNDERLINE = '\033[4m'
+   END = '\033[0m'
 
+class sudokuClass: 
+    _sudokuMatrix = [0] * 81 # Create Sudoku Matrix
     def __init__(self,matrix):
        print("DEBUG: sudoku class constructor called") ##
        ## print('DEBUG: matrix is (', matrix,')') ##
@@ -11,12 +22,31 @@ class sudokuClass:
        self._sudokuMatrix = matrix
 
     def display_matrix(self):
-       print("DEBUG: sudoku display_matrix methodx called") ##
+       print("DEBUG: sudoku display_matrix method called") ##
        ## print('DEBUG: matrix is (', self._sudokuMatrix,')') ##
 
 
+       x = 0 
+       y = 0 
+       for item in self._sudokuMatrix:
+          value = item % 10
+          numState = item // 10
+          if value == 0:
+             print('   ',end='')
+          else:
+             print(' ' + str(value) + ' ',end='')
+          x += 1
+          if x == 3 or x == 6:
+              print("|", end='')
+          if x == 9:
+             print()
+             x = 0
+             y += 1
+             if y == 3 or y == 6:
+                print('-----------------------------')
 
 
+# End of sudokuClass
 
 # Main
 
@@ -37,6 +67,5 @@ def main():
    ## print('DEBUG: sudokuMatrix is (', sudoku._sudokuMatrix,')') ##
 
    sudoku.display_matrix()
-
 
 if __name__ == '__main__': main()
