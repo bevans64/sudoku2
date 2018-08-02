@@ -13,7 +13,7 @@ class color:
    END = '\033[0m'
 
 class sudokuClass: 
-    _sudokuMatrix = [0] * 81 # Create Sudoku Matrix ## Change to _sudokuList
+    _sudokuList = [0] * 81 # Create Sudoku Matrix ## Change to _sudokuList
     _grid = [[0 for x in range(9)] for y in range(9)]
 
     # _numState
@@ -36,7 +36,7 @@ class sudokuClass:
        print("DEBUG: sudoku class constructor called") ##
        ## print('DEBUG: matrix is (', matrix,')') ##
 
-       self._sudokuMatrix = matrix.copy()
+       self._sudokuList = matrix.copy()
        self.reset_matrix() # sets Grids
     # end of constructor
 
@@ -46,8 +46,8 @@ class sudokuClass:
        # Initialize Arrays
        for x in range(9):
           for y in range(9):
-             self._grid[x][y] = self._sudokuMatrix[x*9+y] % 10
-             self._numState[x][y] = self._sudokuMatrix[x*9+y] // 10
+             self._grid[x][y] = self._sudokuList[x*9+y] % 10
+             self._numState[x][y] = self._sudokuList[x*9+y] // 10
              self._boardConf[x][y] = 0
              self._squareConf[x][y] = 0
     # end of reset_martix method
@@ -144,29 +144,3 @@ class sudokuClass:
     # end of analyze_board method
 
 # End of sudokuClass
-
-
-def main():
-   print("DEBUG: Staring Sudoku")
-
-   # Get Sample from file
-   fileName = "examples/test_matrix1.dat"
-   print('DEBUG: fileName is (', fileName,')')
-   with open(fileName) as f:
-      stringMatrix = f.read().splitlines()
-
-   matrix = list(map(int,stringMatrix)) # convert string to integer
-
-   ## print('DEBUG: matrix is (', matrix,')') ##
-
-   sudoku = sudokuClass(matrix)
-   ## print('DEBUG: sudokuMatrix is (', sudoku._sudokuMatrix,')') ##
-
-   ## sudoku._grid[0][0] = '4' ## test
-   ## sudoku.reset_matrix() ##
-   sudoku.analyze_board()
-   sudoku.display_matrix()
-   ##sudoku.export_matrix() ##
-
-# Main
-if __name__ == '__main__': main()
