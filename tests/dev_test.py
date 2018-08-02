@@ -9,7 +9,7 @@ def main():
    print("DEBUG: Staring Sudoku")
 
    # Get Sample from file
-   fileName = "examples/test_matrix1.dat"
+   fileName = "/home/brad/src/sudoku/examples/test_matrix2.dat"
    print('DEBUG: fileName is (', fileName,')')
    with open(fileName) as f:
       stringMatrix = f.read().splitlines()
@@ -23,9 +23,8 @@ def main():
 
    ## sudoku._grid[0][0] = '4' ## test
    ## sudoku.reset_matrix() ##
-   sudoku.analyze_board()
    sudoku.display_matrix()
-   ##sudoku.export_matrix() ##
+   ## sudoku.export_matrix() ##
 
 # Main
 if __name__ == '__main__': main()

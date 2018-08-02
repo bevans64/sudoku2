@@ -133,14 +133,5 @@ class sudokuClass:
 
     # end of test_fixed_num_in_square method
 
-    def analyze_board(self):  ## AT WORK HERE
-        print("DEBUG: sudoku analyze_board.")
-
-        for i in range(9):
-           self.map_number(i+1)
-
-        ## Find best placements and eliminate others
-
-    # end of analyze_board method
 
 # End of sudokuClass
