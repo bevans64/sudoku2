@@ -1,0 +1,5 @@
+Aug 1 2018
+-----------
+sudokuMatrix name change
+seperate out tests from sudokuo.py
+analyze number conflicts

@@ -86,7 +86,7 @@ class sudokuClass:
     # end of display_matrix method
 
     def map_number(self,number): ## Under construction
-       print("DEBUG: sudoku map_number method called. number is (", number, ")") ##
+       ## print("DEBUG: sudoku map_number method called. number is (", number, ")") ##
 
        # Number must be between 1 and 9 inclusive
        if number <1 or number > 9:
@@ -133,9 +133,18 @@ class sudokuClass:
 
     # end of test_fixed_num_in_square method
 
+    def analyze_board(self):  ## AT WORK HERE
+        print("DEBUG: sudoku analyze_board.")
+
+        for i in range(9):
+           self.map_number(i+1)
+
+        ## Find best placements and eliminate others
+
+    # end of analyze_board method
+
 # End of sudokuClass
 
-# Main
 
 def main():
    print("DEBUG: Staring Sudoku")
@@ -155,9 +164,9 @@ def main():
 
    ## sudoku._grid[0][0] = '4' ## test
    ## sudoku.reset_matrix() ##
-   sudoku.map_number(3)
-   ## sudoku.test_fixed_num_in_square(1,6,4)
+   sudoku.analyze_board()
    sudoku.display_matrix()
    ##sudoku.export_matrix() ##
 
+# Main
 if __name__ == '__main__': main()
