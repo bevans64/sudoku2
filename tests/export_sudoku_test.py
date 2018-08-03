@@ -23,9 +23,8 @@ def main():
 
    ## sudoku._grid[0][0] = '4' ## test
    ## sudoku.reset_matrix() ##
-   sudoku.map_number(1)
-   sudoku.display_matrix(0)
-   sudoku.export_matrix() ##
+   for i in sudoku.export_matrix():
+      print(i)
 
 # Main
 if __name__ == '__main__': main()

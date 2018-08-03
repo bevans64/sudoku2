@@ -21,7 +21,7 @@ class color:
    END = '\033[0m'
 
 class sudokuClass: 
-    _sudokuList = [0] * 81 # Create Sudoku Matrix ## Change to _sudokuList
+    _sudokuList = [0] * constant.board_dim**2 # Create Sudoku Matrix ## Change to _sudokuList
     _grid = [[0 for x in range(9)] for y in range(9)]
 
     # _numState
@@ -46,6 +46,7 @@ class sudokuClass:
 
        self._sudokuList = matrix.copy()
        self.reset_matrix() # sets Grids
+
     # end of constructor
 
     def reset_matrix(self): 
@@ -58,16 +59,20 @@ class sudokuClass:
              self._numState[x][y] = self._sudokuList[x*constant.board_dim+y] // 10
              self._boardConf[x][y] = 0
              self._squareConf[x][y] = 0
+
     # end of reset_martix method
 
     def export_matrix(self):
-
        print("DEBUG: sudoku export_matrix method called")
 
        # export grids
+       returnList = []
        for x in range(constant.board_dim):
           for y in range(constant.board_dim):
-             print(self._grid[x][y] + self._numState[x][y] * 10)
+             returnList.append(self._grid[x][y] + self._numState[x][y] * 10)
+
+       return returnList
+
     # end of export_martix method
 
     def display_matrix(self,type):
@@ -112,7 +117,8 @@ class sudokuClass:
 
        for x in range(constant.board_dim):
           for y in range(constant.board_dim):
-             if self._numState[x][y] == constant.fixed_number or self._numState[x][y] == constant.unconflicted_number: # Skip if fixed number or unconflicted number exists
+             ##if self._numState[x][y] == constant.fixed_number or self._numState[x][y] == constant.unconflicted_number: # Skip if fixed number or unconflicted number exists
+             if self._numState[x][y] in (constant.fixed_number,constant.unconflicted_number): # Skip if fixed number or unconflicted number exists
                 continue
              elif self.test_num_in_square(number,0,x,y): # test for fixed numbers
                 continue
