@@ -2,12 +2,12 @@
 # 
 
 class constant:
-   square_dim = 3
-   board_dim = 9
-   unknown_state = 0
-   fixed_number = 1
+   square_dim          = 3
+   board_dim           = 9
+   unknown_state       = 0
+   fixed_number        = 1
    unconflicted_number = 2
-   conflicted_number = 3 
+   conflicted_number   = 3 
 
 class color: 
    BLACK  = '\33[30m'
@@ -18,7 +18,7 @@ class color:
    VIOLET = '\33[35m'
    BEIGE  = '\33[36m'
    WHITE  = '\33[37m'
-   END = '\033[0m'
+   END    = '\033[0m'
 
 class sudokuClass: 
     _sudokuList = [0] * constant.board_dim**2 # Create Sudoku Matrix ## Change to _sudokuList
