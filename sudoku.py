@@ -41,15 +41,15 @@ class sudokuClass:
 
 
     def __init__(self,matrix):
-       print("DEBUG: sudoku class constructor called") ##
-       ## print('DEBUG: matrix is (', matrix,')') ##
+       print("DEBUG: sudoku class constructor called")
+       # print('DEBUG: matrix is (', matrix,')')
 
        self._sudokuList = matrix.copy()
        self.reset_matrix() # sets Grids
     # end of constructor
 
     def reset_matrix(self): 
-       print("DEBUG: sudoku reset_matrix method called") ##
+       print("DEBUG: sudoku reset_matrix method called")
        
        # Initialize Arrays
        for x in range(constant.board_dim):
@@ -62,7 +62,7 @@ class sudokuClass:
 
     def export_matrix(self):
 
-       print("DEBUG: sudoku export_matrix method called") ##
+       print("DEBUG: sudoku export_matrix method called")
 
        # export grids
        for x in range(constant.board_dim):
@@ -71,7 +71,7 @@ class sudokuClass:
     # end of export_martix method
 
     def display_matrix(self):
-       print("DEBUG: sudoku display_matrix method called") ##
+       print("DEBUG: sudoku display_matrix method called")
 
        for x in range(constant.board_dim):
           for y in range(constant.board_dim):
@@ -94,7 +94,7 @@ class sudokuClass:
     # end of display_matrix method
 
     def map_number(self,number): ## Under construction
-       ## print("DEBUG: sudoku map_number method called. number is (", number, ")") ##
+       # print("DEBUG: sudoku map_number method called. number is (", number, ")") 
 
        # Number must be between 1 and 9 inclusive
        if number <1 or number > 9:
@@ -114,7 +114,7 @@ class sudokuClass:
     # end of map_number method
 
     def test_board_conflict(self,number,x,y): # Does the number exist along the row or column ?
-       ## print("DEBUG: sudoku test_board_conflict method called. coordinates are are (", x,",",y, "). Number is (",number,")") ##
+       # print("DEBUG: sudoku test_board_conflict method called. coordinates are are (", x,",",y, "). Number is (",number,")") 
 
        for z in range(constant.board_dim):
           if number == self._grid[x][z] and self._numState[x][z] == constant.fixed_number: return True
@@ -124,17 +124,17 @@ class sudokuClass:
     # end of test_board_conflict method
 
     def test_fixed_num_in_square(self,number,x,y): # Is number in same square?
-       ## print("DEBUG: sudoku test_fixed_num_insquare method called. coordinates are are (", x,",",y, "). Number is (",number,")") ##
+       # print("DEBUG: sudoku test_fixed_num_insquare method called. coordinates are are (", x,",",y, "). Number is (",number,")") 
 
        # What Square are the coordinates in ?
        a = x // constant.square_dim
        b = y // constant.square_dim
        square = (a) * constant.square_dim + (b)
-       ## print("DEBUG: square is ", square) ##
+       # print("DEBUG: square is ", square) 
        for j in range(a*constant.square_dim,a*constant.square_dim+constant.square_dim):
           for k in range(b*constant.square_dim,b*constant.square_dim+constant.square_dim):
              if number == self._grid[j][k] and self._numState[j][k] == constant.fixed_number:
-                ## print("DEBUG: ", number, "found in square", square)
+                # print("DEBUG: ", number, "found in square", square)
                 return True
 
        return False
