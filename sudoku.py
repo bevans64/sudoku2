@@ -70,30 +70,39 @@ class sudokuClass:
              print(self._grid[x][y] + self._numState[x][y] * 10)
     # end of export_martix method
 
-    def display_matrix(self):
-       print("DEBUG: sudoku display_matrix method called")
+    def display_matrix(self,type):
+       # type 0 display grid, type 1 display boardConf, type 2 display squareConf
+       print("DEBUG: sudoku display_matrix method called. type is (",type,")")
+
+       # Select grid to display
+       if type == 0:
+          matrix = self._grid
+       elif type == 1:
+          matrix = self._boardConf
+       elif type == 2:
+          matrix = self._squareConf
 
        for x in range(constant.board_dim):
           for y in range(constant.board_dim):
              if y == 3 or y == 6:
                 print("|",end='')
-             if self._grid[x][y] == 0:
+             if matrix[x][y] == 0:
                 print("   ",end='')
              else:
                 if self._numState[x][y] == constant.unknown_state: print(color.RED,end='')  # Set Color
                 elif self._numState[x][y] == constant.fixed_number: print(color.WHITE,end='') 
                 elif self._numState[x][y] == constant.unconflicted_number: print(color.GREEN,end='') 
                 elif self._numState[x][y] == constant.conflicted_number: print(color.YELLOW,end='') 
-                print(' ' + str(self._grid[x][y]) + ' ',end='')
+                print(' ' + str(matrix[x][y]) + ' ',end='')
                 print(color.END,end='') # Color to normal
           if x == 2 or x == 5:
              print()
-             print( "---------------------------------------",end='')
+             print( "----------------------------",end='')
           print()
 
     # end of display_matrix method
 
-    def map_number(self,number): ## Under construction
+    def map_number(self,number): 
        # print("DEBUG: sudoku map_number method called. number is (", number, ")") 
 
        # Number must be between 1 and 9 inclusive
@@ -105,25 +114,32 @@ class sudokuClass:
           for y in range(constant.board_dim):
              if self._numState[x][y] == constant.fixed_number or self._numState[x][y] == constant.unconflicted_number: # Skip if fixed number or unconflicted number exists
                 continue
-             elif self.test_fixed_num_in_square(number,x,y):
+             elif self.test_num_in_square(number,0,x,y): # test for fixed numbers
                 continue
-             elif self.test_board_conflict(number,x,y):
+             elif self.test_board_conflict(number,0,x,y): # test for fixed numbers
                 continue
              else:
                 self._grid[x][y] = number
     # end of map_number method
 
-    def test_board_conflict(self,number,x,y): # Does the number exist along the row or column ?
+    def test_board_conflict(self,number,type,x,y): # Does the number exist along the row or column ?
+       # type = 0 test fixed numbers.  type = 1 test non fixed
        # print("DEBUG: sudoku test_board_conflict method called. coordinates are are (", x,",",y, "). Number is (",number,")") 
 
        for z in range(constant.board_dim):
-          if number == self._grid[x][z] and self._numState[x][z] == constant.fixed_number: return True
-          if number == self._grid[z][y] and self._numState[z][y] == constant.fixed_number: return True
+          if type == 0:
+             if number == self._grid[x][z] and self._numState[x][z] == constant.fixed_number: return True
+             if number == self._grid[z][y] and self._numState[z][y] == constant.fixed_number: return True
+          else:
+             if number == self._grid[x][z] and self._numState[x][z] != constant.fixed_number: return True
+             if number == self._grid[z][y] and self._numState[z][y] != constant.fixed_number: return True
+
        return False
 
     # end of test_board_conflict method
 
-    def test_fixed_num_in_square(self,number,x,y): # Is number in same square?
+    def test_num_in_square(self,number,type,x,y): # Is number in same square?
+       # type = 0 test fixed numbers.  type = 1 test non fixed
        # print("DEBUG: sudoku test_fixed_num_insquare method called. coordinates are are (", x,",",y, "). Number is (",number,")") 
 
        # What Square are the coordinates in ?
@@ -133,9 +149,14 @@ class sudokuClass:
        # print("DEBUG: square is ", square) 
        for j in range(a*constant.square_dim,a*constant.square_dim+constant.square_dim):
           for k in range(b*constant.square_dim,b*constant.square_dim+constant.square_dim):
-             if number == self._grid[j][k] and self._numState[j][k] == constant.fixed_number:
-                # print("DEBUG: ", number, "found in square", square)
-                return True
+             if type == 0:
+                if number == self._grid[j][k] and self._numState[j][k] == constant.fixed_number:
+                   # print("DEBUG: ", number, "found in square", square)
+                   return True
+             else:
+                if number == self._grid[j][k] and self._numState[j][k] != constant.fixed_number:
+                   # print("DEBUG: ", number, "found in square", square)
+                   return True
 
        return False
 
