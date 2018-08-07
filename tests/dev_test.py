@@ -25,6 +25,10 @@ def main():
    ## sudoku.reset_matrix() ##
    sudoku.map_number(1)
    sudoku.display_matrix(0)
+   ## sudoku._boardConf[0][2] =  sudoku.test_board_conflicts(1,1,0,2)
+   ## sudoku._squareConf[0][6] =  sudoku.new_test_num_in_square(1,1,0,6)
+   sudoku.display_matrix(1)
+   sudoku.display_matrix(2)
    sudoku.export_matrix() ##
 
 # Main

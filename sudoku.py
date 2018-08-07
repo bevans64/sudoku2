@@ -21,7 +21,7 @@ class color:
    END    = '\033[0m'
 
 class sudokuClass: 
-    _sudokuList = [0] * constant.board_dim**2 # Create Sudoku Matrix ## Change to _sudokuList
+    _sudokuList = [0] * constant.board_dim**2 # Create Sudoku List
     _grid = [[0 for x in range(9)] for y in range(9)]
 
     # _numState
@@ -94,12 +94,14 @@ class sudokuClass:
              if matrix[x][y] == 0:
                 print("   ",end='')
              else:
-                if self._numState[x][y] == constant.unknown_state: print(color.RED,end='')  # Set Color
-                elif self._numState[x][y] == constant.fixed_number: print(color.WHITE,end='') 
-                elif self._numState[x][y] == constant.unconflicted_number: print(color.GREEN,end='') 
-                elif self._numState[x][y] == constant.conflicted_number: print(color.YELLOW,end='') 
+                if type == 0: # Colour only for type 0
+                   if self._numState[x][y] == constant.unknown_state: print(color.RED,end='')  
+                   elif self._numState[x][y] == constant.fixed_number: print(color.WHITE,end='') 
+                   elif self._numState[x][y] == constant.unconflicted_number: print(color.GREEN,end='') 
+                   elif self._numState[x][y] == constant.conflicted_number: print(color.YELLOW,end='') 
                 print(' ' + str(matrix[x][y]) + ' ',end='')
-                print(color.END,end='') # Color to normal
+                if type == 0:
+                   print(color.END,end='') # Color to normal
           if x == 2 or x == 5:
              print()
              print( "----------------------------",end='')
@@ -117,38 +119,55 @@ class sudokuClass:
 
        for x in range(constant.board_dim):
           for y in range(constant.board_dim):
-             ##if self._numState[x][y] == constant.fixed_number or self._numState[x][y] == constant.unconflicted_number: # Skip if fixed number or unconflicted number exists
              if self._numState[x][y] in (constant.fixed_number,constant.unconflicted_number): # Skip if fixed number or unconflicted number exists
                 continue
-             elif self.test_num_in_square(number,0,x,y): # test for fixed numbers
+             if self.test_num_in_square(number,0,x,y) > 0: # test for fixed numbers ##
                 continue
-             elif self.test_board_conflict(number,0,x,y): # test for fixed numbers
+             if self.test_board_conflicts(number,0,x,y) > 0: # test for fixed numbers 
                 continue
-             else:
-                self._grid[x][y] = number
+             self._grid[x][y] = number
+
+       # check conflicts on board and within square
+       for x in range(constant.board_dim):
+          for y in range(constant.board_dim):
+             if self._grid[x][y] != number:
+                continue
+             if self._numState[x][y] in (constant.fixed_number,constant.unconflicted_number): # Skip if fixed number or unconflicted number exists
+                continue
+             self._boardConf[x][y] =  self.test_board_conflicts(number,1,x,y) - 2 # minus two hits for same position
+             self._squareConf[x][y] = self.test_num_in_square(number,1,x,y)
+
     # end of map_number method
 
-    def test_board_conflict(self,number,type,x,y): # Does the number exist along the row or column ?
+    def test_board_conflicts(self,number,type,x,y): # Does the number exist along the row or column ? 
        # type = 0 test fixed numbers.  type = 1 test non fixed
        # print("DEBUG: sudoku test_board_conflict method called. coordinates are are (", x,",",y, "). Number is (",number,")") 
+       # return number of conflicts
 
+       ret_val = 0
        for z in range(constant.board_dim):
           if type == 0:
-             if number == self._grid[x][z] and self._numState[x][z] == constant.fixed_number: return True
-             if number == self._grid[z][y] and self._numState[z][y] == constant.fixed_number: return True
+             if number == self._grid[x][z] and self._numState[x][z] == constant.fixed_number:
+                ret_val += 1
+             if number == self._grid[z][y] and self._numState[z][y] == constant.fixed_number:
+                ret_val += 1
           else:
-             if number == self._grid[x][z] and self._numState[x][z] != constant.fixed_number: return True
-             if number == self._grid[z][y] and self._numState[z][y] != constant.fixed_number: return True
+             if number == self._grid[x][z] and self._numState[x][z] != constant.fixed_number:
+                ret_val += 1
+             if number == self._grid[z][y] and self._numState[z][y] != constant.fixed_number:
+                ret_val += 1
 
-       return False
+       # print("DEBUG: ret_val is (",ret_val,")") 
+       return ret_val
 
     # end of test_board_conflict method
 
-    def test_num_in_square(self,number,type,x,y): # Is number in same square?
+    def test_num_in_square(self,number,type,x,y): # How many times is number in square? ##
        # type = 0 test fixed numbers.  type = 1 test non fixed
        # print("DEBUG: sudoku test_fixed_num_insquare method called. coordinates are are (", x,",",y, "). Number is (",number,")") 
 
        # What Square are the coordinates in ?
+       ret_val = 0
        a = x // constant.square_dim
        b = y // constant.square_dim
        square = (a) * constant.square_dim + (b)
@@ -157,14 +176,15 @@ class sudokuClass:
           for k in range(b*constant.square_dim,b*constant.square_dim+constant.square_dim):
              if type == 0:
                 if number == self._grid[j][k] and self._numState[j][k] == constant.fixed_number:
-                   # print("DEBUG: ", number, "found in square", square)
-                   return True
+                   # print("DEBUG: ", number, "found in square", square) 
+                   ret_val += 1
              else:
                 if number == self._grid[j][k] and self._numState[j][k] != constant.fixed_number:
                    # print("DEBUG: ", number, "found in square", square)
-                   return True
+                   ret_val += 1
 
-       return False
+       # print("DEBUG: ret_val is (",ret_val,")") 
+       return ret_val
 
     # end of test_fixed_num_in_square method
 
