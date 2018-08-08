@@ -121,13 +121,13 @@ class sudokuClass:
           for y in range(constant.board_dim):
              if self._numState[x][y] in (constant.fixed_number,constant.unconflicted_number): # Skip if fixed number or unconflicted number exists
                 continue
-             if self.test_num_in_square(number,0,x,y) > 0: # test for fixed numbers ##
+             if self.test_num_in_square(number,0,x,y) > 0: # test for fixed numbers 
                 continue
              if self.test_board_conflicts(number,0,x,y) > 0: # test for fixed numbers 
                 continue
              self._grid[x][y] = number
 
-       # check conflicts on board and within square
+       # check conflicts on board and within square  ## To own function analyze_board()
        for x in range(constant.board_dim):
           for y in range(constant.board_dim):
              if self._grid[x][y] != number:
@@ -162,7 +162,7 @@ class sudokuClass:
 
     # end of test_board_conflict method
 
-    def test_num_in_square(self,number,type,x,y): # How many times is number in square? ##
+    def test_num_in_square(self,number,type,x,y): # How many times is number in square? 
        # type = 0 test fixed numbers.  type = 1 test non fixed
        # print("DEBUG: sudoku test_fixed_num_insquare method called. coordinates are are (", x,",",y, "). Number is (",number,")") 
 
@@ -188,5 +188,46 @@ class sudokuClass:
 
     # end of test_fixed_num_in_square method
 
+    def set_zero_conflict(self,number): # find numbers not in conflict, remove conflicts
+       print("DEBUG: sudoku set_zero_conflict method called. number Number is (",number,")")  ##
 
-# End of sudokuClass
+       while True: # do until no eliminations made
+          for x in range(constant.board_dim): # Scan board
+             for y in range(constant.board_dim):
+
+                # Find numbers unique to square
+                if self._numState not in (constant.fixed_number,constant.unconflicted_number):
+                   if number == self._grid[x][y] and self._squareConf[x][y] == 1: 
+                      print("DEBUG hit (",x,",",y,")") ##
+      
+                      # Other unique numbers in conflict ? Skip
+   
+                      # eliminate conflicts
+                      conf_count = 0
+                      for z in range(constant.board_dim):
+                         if self._grid[x][z] == number and z != y and self._squareConf[x][z] == 1:
+                            conf_count = 1
+                            print("ERROR: two unique numbers in conflict",x,z)
+                         if self._grid[z][y] == number and z != x and self._squareConf[z][y] == 1:
+                            conf_count = 1
+                            print("ERROR: two unique numbers in conflict",z,y)
+
+                      if conf_count == 1: continue # skip rest
+
+                      elim_count = 0
+                      self._numState[x][y] = constant.unconflicted_number
+                      for z in range(constant.board_dim):
+                         if self._grid[x][z] == number and z != y:
+                            print("DEBUG: Eliminating ",x,z)
+                            elim_count = 1
+                            self._grid[x][z] = 0
+                         if self._grid[z][y] == number and z != x:
+                            print("DEBUG: Eliminating ",z,y)
+                            elim_count = 1
+                            self._grid[z][y] = 0
+
+          ## recalculate conflict with analyze_board()
+          if elim_count == 0: break
+
+    # end of set_zero_conflict method
+
