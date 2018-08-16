@@ -2,12 +2,19 @@
 # 
 
 class constant:
-   square_dim          = 3
-   board_dim           = 9
-   unknown_state       = 0
-   fixed_number        = 1
-   unconflicted_number = 2
-   conflicted_number   = 3 
+   square_dim              = 3
+   board_dim               = 9
+
+   # Number States
+   unknown_state           = 0
+   fixed_number            = 1
+   unconflicted_number     = 2
+   conflicted_number       = 3 
+
+   # Grid Display Modes
+   display_grid            = 0
+   display_board_conflict  = 1
+   display_square_conflict = 2
 
 class color: 
    BLACK  = '\33[30m'
@@ -22,7 +29,7 @@ class color:
 
 class sudokuClass: 
     _sudokuList = [0] * constant.board_dim**2 # Create Sudoku List
-    _grid = [[0 for x in range(9)] for y in range(9)]
+    _grid = [[0 for x in range(constant.board_dim)] for y in range(constant.board_dim)]
 
     # _numState
     # 0 - Unknown State (RED, constant.unknown_state)
@@ -80,11 +87,11 @@ class sudokuClass:
        print("DEBUG: sudoku display_matrix method called. type is (",type,")")
 
        # Select grid to display
-       if type == 0:
+       if type == constant.display_grid:
           matrix = self._grid
-       elif type == 1:
+       elif type == constant.display_board_conflict:
           matrix = self._boardConf
-       elif type == 2:
+       elif type == constant.display_square_conflict:
           matrix = self._squareConf
 
        for x in range(constant.board_dim):
