@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+#
+# SUDODU 2
+# Adventures in Sudoku
 # 
 
 class constant:
@@ -126,11 +129,12 @@ class sudokuClass:
 
        for x in range(constant.board_dim):
           for y in range(constant.board_dim):
-             if self._numState[x][y] in (constant.fixed_number,constant.unconflicted_number): # Skip if fixed number or unconflicted number exists
+             # Skip if fixed number or unconflicted number exists
+             if self._numState[x][y] in (constant.fixed_number,constant.unconflicted_number): 
                 continue
-             if self.test_num_in_square(number,0,x,y) > 0: # test for fixed numbers 
+             if self.test_num_in_square(number,0,x,y) > 0: # test for fixed numbers in squar
                 continue
-             if self.test_board_conflicts(number,0,x,y) > 0: # test for fixed numbers 
+             if self.test_board_conflicts(number,0,x,y) > 0: # test for fixed numbers conflicts in rows and columns
                 continue
              self._grid[x][y] = number
 
