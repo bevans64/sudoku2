@@ -54,6 +54,19 @@ class sudokuClass:
        print("DEBUG: sudoku class constructor called")
        # print('DEBUG: matrix is (', matrix,')')
 
+       # matrix must have exactly 81 elements
+       # print("DEBUG: matrix length is (", len(matrix), ")")
+
+       if len(matrix) != constant.board_dim**2:
+          print("DEBUG ERROR: matrix is the wrong size") 
+          return
+
+       # Check elements in range
+       for i in matrix:
+          if i not in range(10) and i not in range(11,20):
+             print("DEBUG ERROR: element out of bounds (",i,")")
+             return
+
        self._sudokuList = matrix.copy()
        self.reset_matrix() # sets Grids
 
