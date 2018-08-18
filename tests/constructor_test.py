@@ -20,21 +20,21 @@ def main():
 
    matrix = list(map(int,stringMatrix)) # convert string to integer
 
-   print("DEBUG:  Test matrix element out of bounds")
+   print("DEBUG:  Test matrix element out of bounds (expect failure)")
    matrix.append(5) # add extra element hee hee hee
    sudoku = sudokuClass(matrix) # Should fail
+   print()
 
-   print("DEBUG: Test if bad element in matrix")
+   print("DEBUG: Test if bad element in matrix (expect failure)")
    matrix = list(map(int,stringMatrix)) # convert string to integer # Reset Matrix
    matrix[10] = 42 # hee hee hee
    sudoku = sudokuClass(matrix) # Should fail
+   print()
 
-   ## print(DEBUG: Good Test")
-   ##matrix = list(map(int,stringMatrix)) # convert string to integer # Reset Matrix
-   ##sudoku = sudokuClass(matrix)
-
-   # Export matches input
-
+   print("DEBUG: Good Test (expect no errors)")
+   matrix = list(map(int,stringMatrix)) # convert string to integer # Reset Matrix
+   sudoku = sudokuClass(matrix)
+   print()
 
 # Main
 if __name__ == '__main__': main()

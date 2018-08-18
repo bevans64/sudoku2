@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# SUDODU 2
+# SUDOKU 2
 # Adventures in Sudoku
 # 
 
@@ -51,6 +51,9 @@ class sudokuClass:
 
 
     def __init__(self,matrix):
+       # matrix is a list with exactly 81 elements.  Each element is an integer between 1 and 19 excluding 10.
+       # If an element is greater than 10, then it represent a fixed number between 1 and 9.  The number being the 2cnd digit.
+
        print("DEBUG: sudoku class constructor called")
        # print('DEBUG: matrix is (', matrix,')')
 
@@ -102,6 +105,11 @@ class sudokuClass:
        # type 0 display grid, type 1 display boardConf, type 2 display squareConf
        print("DEBUG: sudoku display_matrix method called. type is (",type,")")
 
+       # Boundary test type
+       if type not in (constant.display_grid,constant.display_board_conflict,constant.display_square_conflict):
+          print("DEBUG ERROR: bad value for type")
+          return
+
        # Select grid to display
        if type == constant.display_grid:
           matrix = self._grid
@@ -137,7 +145,7 @@ class sudokuClass:
 
        # Number must be between 1 and 9 inclusive
        if number <1 or number > 9:
-          print("ERROR: map_number: number out of range")
+          print("DEBUG ERROR: map_number: number out of range")
           return 1
 
        for x in range(constant.board_dim):
@@ -231,10 +239,10 @@ class sudokuClass:
                       for z in range(constant.board_dim):
                          if self._grid[x][z] == number and z != y and self._squareConf[x][z] == 1:
                             conf_count = 1
-                            print("ERROR: two unique numbers in conflict",x,z)
+                            print("DEBUG ERROR: two unique numbers in conflict",x,z)
                          if self._grid[z][y] == number and z != x and self._squareConf[z][y] == 1:
                             conf_count = 1
-                            print("ERROR: two unique numbers in conflict",z,y)
+                            print("DEBUG ERROR: two unique numbers in conflict",z,y)
 
                       if conf_count == 1: continue # skip rest
 
